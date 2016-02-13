@@ -91,6 +91,36 @@ public class ContainerHostConfig {
 	private Integer blkioWeight;
 
 	/**
+	 *  Block IO weight (relative device weight) in the form of: "BlkioWeightDevice": [{"Path": "device_path", "Weight": weight}]
+	 */
+	@JsonProperty("BlkioWeightDevice")
+	private List<String> blkioWeightDevice;
+
+	/**
+	 *  Limit read rate (bytes per second) from a device in the form of: "BlkioDeviceReadBps": [{"Path": "device_path", "Rate": rate}], for example: "BlkioDeviceReadBps": [{"Path": "/dev/sda", "Rate": "1024"}]"
+	 */
+	@JsonProperty("BlkioDeviceReadBps")
+	private List<String> blkioDeviceReadBps;
+
+	/**
+	 *  Limit write rate (bytes per second) to a device in the form of: "BlkioDeviceWriteBps": [{"Path": "device_path", "Rate": rate}], for example: "BlkioDeviceWriteBps": [{"Path": "/dev/sda", "Rate": "1024"}]"
+	 */
+	@JsonProperty("BlkioDeviceWriteBps")
+	private List<String> blkioDeviceWriteBps;
+
+	/**
+	 *  Limit read rate (IO per second) from a device in the form of: "BlkioDeviceReadIOps": [{"Path": "device_path", "Rate": rate}], for example: "BlkioDeviceReadIOps": [{"Path": "/dev/sda", "Rate": "1000"}]
+	 */
+	@JsonProperty("BlkioDeviceReadIOps")
+	private List<String> blkioDeviceReadIOps;
+
+	/**
+	 *  Limit write rate (IO per second) to a device in the form of: "BlkioDeviceWriteIOps": [{"Path": "device_path", "Rate": rate}], for example: "BlkioDeviceWriteIOps": [{"Path": "/dev/sda", "Rate": "1000"}]
+	 */
+	@JsonProperty("BlkioDeviceWriteIOps")
+	private List<String> blkioDeviceWriteIOps;
+
+	/**
 	 * Tune a container’s memory swappiness behavior. Accepts an integer between 0 and 100.
 	 */
 	@JsonProperty("MemorySwappiness")
@@ -101,6 +131,12 @@ public class ContainerHostConfig {
 	 */
 	@JsonProperty("OomKillDisable")
 	private Boolean oomKillDisable;
+
+	/**
+	 *  An integer value containing the score given to the container in order to tune OOM killer preferences
+	 */
+	@JsonProperty("OomScoreAdj")
+	private Integer oomScoreAdj;
 
 	/**
 	 * A map of exposed container ports and the host port they should map to. 
@@ -227,6 +263,15 @@ public class ContainerHostConfig {
 	 */
 	@JsonProperty("VolumeDriver")
 	private String volumeDriver;
+
+	/**
+	 * Size of /dev/shm in bytes. The size must be greater than 0. If omitted the system uses 64MB.
+	 */
+	@JsonProperty("ShmSize")
+	private Integer shmSize;
+
+	@JsonProperty("Isolation")
+	private String isolation;
 	
 	@JsonProperty("ContainerIDFile")
 	private String containerIDFile;
@@ -236,6 +281,9 @@ public class ContainerHostConfig {
 
 	@JsonProperty("PidMode")
 	private String pidMode;
+
+	@JsonProperty("PidsLimit")
+	private Integer pidsLimit;
 
 	@JsonProperty("UTSMode")
 	private String utsMode;
@@ -277,6 +325,14 @@ public class ContainerHostConfig {
 
 	public void setPidMode(String pidMode) {
 		this.pidMode = pidMode;
+	}
+
+	public Integer getPidsLimit() {
+		return pidsLimit;
+	}
+
+	public void setPidsLimit(Integer pidsLimit) {
+		this.pidsLimit = pidsLimit;
 	}
 
 	public String getIpcMode() {
@@ -399,7 +455,46 @@ public class ContainerHostConfig {
 		this.blkioWeight = blkioWeight;
 	}
 
-	
+	public List<String> getBlkioWeightDevice() {
+		return blkioWeightDevice;
+	}
+
+	public void setBlkioWeightDevice(List<String> blkioWeightDevice) {
+		this.blkioWeightDevice = blkioWeightDevice;
+	}
+
+	public List<String> getBlkioDeviceReadBps() {
+		return blkioDeviceReadBps;
+	}
+
+	public void setBlkioDeviceReadBps(List<String> blkioDeviceReadBps) {
+		this.blkioDeviceReadBps = blkioDeviceReadBps;
+	}
+
+	public List<String> getBlkioDeviceWriteBps() {
+		return blkioDeviceWriteBps;
+	}
+
+	public void setBlkioDeviceWriteBps(List<String> blkioDeviceWriteBps) {
+		this.blkioDeviceWriteBps = blkioDeviceWriteBps;
+	}
+
+	public List<String> getBlkioDeviceReadIOps() {
+		return blkioDeviceReadIOps;
+	}
+
+	public void setBlkioDeviceReadIOps(List<String> blkioDeviceReadIOps) {
+		this.blkioDeviceReadIOps = blkioDeviceReadIOps;
+	}
+
+	public List<String> getBlkioDeviceWriteIOps() {
+		return blkioDeviceWriteIOps;
+	}
+
+	public void setBlkioDeviceWriteIOps(List<String> blkioDeviceWriteIOps) {
+		this.blkioDeviceWriteIOps = blkioDeviceWriteIOps;
+	}
+
 	public Integer getMemorySwappiness() {
 		return memorySwappiness;
 	}
@@ -414,6 +509,14 @@ public class ContainerHostConfig {
 
 	public void setOomKillDisable(Boolean oomKillDisable) {
 		this.oomKillDisable = oomKillDisable;
+	}
+
+	public Integer getOomScoreAdj() {
+		return oomScoreAdj;
+	}
+
+	public void setOomScoreAdj(Integer oomScoreAdj) {
+		this.oomScoreAdj = oomScoreAdj;
 	}
 
 	public Map<String, PortBinding> getPortBindings() {
@@ -568,5 +671,19 @@ public class ContainerHostConfig {
 		this.volumeDriver = volumeDriver;
 	}
 
-	
+	public Integer getShmSize() {
+		return shmSize;
+	}
+
+	public void setShmSize(Integer shmSize) {
+		this.shmSize = shmSize;
+	}
+
+	public String getIsolation() {
+		return isolation;
+	}
+
+	public void setIsolation(String isolation) {
+		this.isolation = isolation;
+	}
 }
