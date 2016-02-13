@@ -59,7 +59,7 @@ public class DockerUtil {
 
 	
 	
-	private static class AttachListener implements WebSocketListener {
+	public static class AttachListener implements WebSocketListener {
 		private StringBuffer output;
 		private String data;
 		
